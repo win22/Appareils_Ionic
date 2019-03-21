@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button clear color="danger" (click)="dismissModal()">Fermer</button>
+    </ion-buttons>
+    <ion-title>{{appareil.title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--Mon card change de couleur en fonction de la valeur de mon is-On -->
+ <ion-card [ngClass]="{'is-On':appareil.isOn, 'is-Off':!appareil.isOn}">
+   <ion-card-header>
+     <ion-title>{{appareil.title}}</ion-title>
+   </ion-card-header>
+   <ion-card-content>
+     <p *ngFor="let line of appareil.description">{{line}}</p>
+   </ion-card-content>
+ </ion-card>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <button ion-button [disabled]="appareil.isOn" (click)="onToggleAppareil()" full color="secondary">Allumer</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button full [disabled]="!appareil.isOn" (click)="onToggleAppareil()" color="danger">Eteindre</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+  <!--Le formulaire fonctionne comme tout formulaire template Angular :
+   vous ajoutez une référence locale de type  ngForm , vous liez la méthode de soumission du formulaire à  ngSubmit  et
+   vous ajoutez la directive  ngModel  à chaque control.  Dans ce cas précis,
+   vous ajoutez la liaison à double sens afin que les controls lisent les propriétés de l'appareil si elles existent déjà.-->
+  <form #f="ngForm" (ngSubmit)="onSubmitForm(f)" >
+    <ion-list>
+      <ion-item>
+        <ion-label>Heure d'allumage</ion-label>
+        <ion-datetime displayFormat="HH:mm"
+                      name="startTime" [(ngModel)]="appareil.startTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Heure d'extinction</ion-label>
+        <ion-datetime displayFormat="HH:mm"
+                      name="endTime" [(ngModel)]="appareil.endTime"></ion-datetime>
+      </ion-item>
+    </ion-list>
+    <button ion-button full type="button" color="danger" (click)="onDeleteHours()">Supprimer horraire</button>
+    <button ion-button full type="submit" color="secondary">Enregistrer horraire</button>
+
+  </form>
+
+
+</ion-content>
+

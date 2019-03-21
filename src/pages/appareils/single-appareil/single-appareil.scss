@@ -1,0 +1,14 @@
+page-single-appareil {
+  .is-On{
+    ion-card-content, ion-card-header, ion-grid {
+      background-color: #9eeeb6;
+    }
+  }
+  .is-Off{
+    ion-card-content, ion-card-header, ion-grid {
+      background-color: #ffeeee;
+    }
+
+  }
+
+}

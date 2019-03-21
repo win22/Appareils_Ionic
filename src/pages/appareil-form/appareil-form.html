@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Nouvel appareil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!--Les  ion-item-divider  permettent de diviser un  ion-list  en différentes parties. Intégrer un  ion-label  et un  ion-input
+ dans un  ion-item  permet une mise en page automatique et propre.
+Afin de visualiser votre progrès, ajoutez  AppareilFormPage  dans les  declarations  et  entryComponents  de votre  AppModule , et créez un bouton sur  AppareilsPage  pour y accéder :-->
+
+<ion-content padding>
+  <form [formGroup]="appareilForm">
+    <ion-list>
+      <ion-item-divider>Informations </ion-item-divider>
+        <ion-item>
+          <ion-label>Nom</ion-label>
+        </ion-item>
+        <ion-input placeholder="Appareil" formControlName="title"></ion-input>
+
+      <ion-item-divider>Description</ion-item-divider>
+      <div formArrayName="description">
+        <ion-item *ngFor="let control of getDescriptionArray().controls; let i = index">
+          <ion-icon item-start
+                    name="remove-circle"
+                    color="danger"
+                    (click)="onRemoveDesciption(i)"></ion-icon>
+          <ion-input [formControlName]="i" placeholder="{{i+1}}"></ion-input>
+        </ion-item>
+      </div>
+    </ion-list>
+
+          <button ion-button full (click)="onAddDescription()" >Ajouter une ligne</button>
+
+          <button ion-button full color="secondary" (click)="onSubmitForm()" >Sauvegarder</button>
+
+  </form>
+
+</ion-content>
